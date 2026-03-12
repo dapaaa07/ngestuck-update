@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Subscription;
 use App\Models\SubscriptionAble;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -16,8 +15,9 @@ class SubscribeToSubscriptionAble implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $user;
-    private $subscriptionAble;
+    // WAJIB UBAH MENJADI PUBLIC
+    public $user;
+    public $subscriptionAble;
 
     public function __construct(User $user, SubscriptionAble $subscriptionAble)
     {

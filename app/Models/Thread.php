@@ -94,4 +94,19 @@ class Thread extends Model implements ReplyAble, SubscriptionAble, Viewable
             $query->where('tags.slug', $tag);
         });
     }
+
+    // Tambahkan ini di dalam class Thread di file app/Models/Thread.php
+
+    public function bodyWithImages()
+    {
+        $body = $this->body();
+
+        // Regex untuk mendeteksi URL gambar langsung (direct link)
+        $pattern = '/(https?:\/\/\S+\.(?:jpg|jpeg|png|gif|webp))/i';
+
+        // Bungkus URL tersebut dengan tag img
+        $replacement = '<div class="my-4"><img src="$1" class="rounded-lg max-w-full h-auto" alt="User Image"></div>';
+
+        return preg_replace($pattern, $replacement, $body);
+    }
 }

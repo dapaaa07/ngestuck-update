@@ -90,7 +90,8 @@ class ThreadController extends Controller
         return redirect()->route('threads.index')->with('success', 'Thread Updated!');
     }
 
-    public function subscribe(Request $request, Thread $thread)
+    // Tambahkan Category $category sebelum Thread $thread
+    public function subscribe(Request $request, Category $category, Thread $thread)
     {
         $this->authorize(ThreadPolicy::SUBSCRIBE, $thread);
 
@@ -100,7 +101,8 @@ class ThreadController extends Controller
             ->with('success', 'You have been subscribed to this thread');
     }
 
-    public function unsubscribe(Request $request, Thread $thread)
+    // Tambahkan Category $category sebelum Thread $thread
+    public function unsubscribe(Request $request, Category $category, Thread $thread)
     {
         $this->authorize(ThreadPolicy::UNSUBSCRIBE, $thread);
 
@@ -162,9 +164,9 @@ class ThreadController extends Controller
 
     public function search(Request $request)
     {
-        $threads = Thread::where('title', 'LIKE', '%'.$request->search.'%')
-            ->orWhere('slug', 'LIKE', '%'.$request->search.'%')
-            ->orWhere('body', 'LIKE', '%'.$request->search.'%');
+        $threads = Thread::where('title', 'LIKE', '%' . $request->search . '%')
+            ->orWhere('slug', 'LIKE', '%' . $request->search . '%')
+            ->orWhere('body', 'LIKE', '%' . $request->search . '%');
 
         return view('pages.threads.index', [
             'threads'       => $threads->paginate(10),

@@ -16,17 +16,20 @@ class Subscription extends Model
     protected $table = 'subscriptions';
     protected $with = ['userRelation', 'subscriptionAbleRelation'];
 
-    public function user(): User
+    // Tambahkan ? (nullable) agar aman jika suatu saat user dihapus
+    public function user(): ?User
     {
         return $this->userRelation;
     }
 
     public function userRelation(): BelongsTo
     {
-        return $this->BelongsTo(User::class, 'user_id');
+        // Ubah B besar menjadi b kecil sesuai bawaan fungsi Laravel
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function subscriptionAble(): SubscriptionAble
+    // Tambahkan ? (nullable)
+    public function subscriptionAble(): ?SubscriptionAble
     {
         return $this->subscriptionAbleRelation;
     }

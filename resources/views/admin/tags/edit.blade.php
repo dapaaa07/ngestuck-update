@@ -9,7 +9,11 @@
 
     <section class="mx-6">
         <div class="p-8">
-            <x-form action="{{ route('admin.tags.update', $tag) }}" method="PUT">
+            {{-- Menggunakan tag form standar HTML dan Laravel --}}
+            <form action="{{ route('admin.tags.update', $tag->slug) }}" method="POST">
+                @csrf
+                @method('PUT')
+
                 <div class="space-y-8">
                     {{-- Name --}}
                     <div>
@@ -19,10 +23,11 @@
                     </div>
 
                     {{-- Button --}}
-                    <x-buttons.primary>
+                    <x-buttons.primary type="submit">
                         {{ __('Update') }}
                     </x-buttons.primary>
-            </x-form>
+                </div>
+            </form>
         </div>
     </section>
 </x-app-layout>
